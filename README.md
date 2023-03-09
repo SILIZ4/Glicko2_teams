@@ -46,4 +46,4 @@ In this example, Ash has a rating of 1800 with uncertainty 200 and volatility 0.
 
 The rating formula of Glicko-2 can only handle singles. Considering the rating as a normal random variable of expectation $r$ (rating) and variance $RD^2$ (uncertainty), the rating average of the team is $(r_1+r_2)/2$ with uncertainty $\sqrt{RD_1^2 + RD_2^2}$, where the indices $1$ and $2$ are the players $1$ and $2$ of the team.
 
-The result of a game is considered a singles match between the average ratings of the team. This means that in each equation of the Glicko-2 formulae that sums on the games, the rating of the player is replaced by the average rating of the doubles team for that particular game.
+The result of a game is considered a singles match between the average ratings of the team. This means that in each sum on the games in the Glicko-2 formulae, the rating of the player is replaced by the average rating of the doubles team for that particular game instead of being the player's rating.
