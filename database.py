@@ -5,7 +5,7 @@ def write_players(players: dict[str, Player], filename: str):
     """ Writes csv file containing players information.
     """
     with open(filename, "w") as file_stream:
-        file_stream.write("name,rating,rd,vol\n")
+        file_stream.write("#name,rating,rd,vol\n")
         for player_name, player in players.items():
             player_information = [player_name, player.rating, player.rd, player.vol]
             file_stream.write(
@@ -19,12 +19,13 @@ def load_players(filename: str) -> dict[str, Player]:
     """
     players = {}
     with open(filename, "r") as file_stream:
-        next(file_stream) # ignore first line
         for line in file_stream:
+            if line.startswith("#"):
+                continue
             player_name, *player_stats = line.strip().split(',')
 
             # Initialize player with default Glicko values if player_stats empty.
-            players[player_name] = Player(**dict(zip(["rating", "rd", "vol"], map(float, player_stats))))
+            players[player_name] = Player(**dict(zip(["rating", "rd", "vol"], map(lambda x: float(x.strip()), player_stats))))
     return players
 
 
@@ -36,9 +37,10 @@ def read_games(filename: str) -> list[tuple[tuple[Player], tuple[Player], bool]]
     """
     games = []
     with open(filename, "r") as file_stream:
-        next(file_stream) # ignore first line
         for i, line in enumerate(file_stream):
-            *players, result = line.split(',')
+            if line.startswith("#"):
+                continue
+            *players, result = list(map(lambda x: x.strip(), line.split(',')))
             if len(players) == 2:
                 games.append(((players[0]), (players[1]), int(result)))
             elif len(players) == 4:
@@ -61,7 +63,7 @@ def apply_games(players: dict, game_filename: str):
         team2_rating = Player.merge_player_ratings([players[player_name] for player_name in team2])
         team1_RD = Player.merge_player_RDs([players[player_name] for player_name in team1])
         team2_RD = Player.merge_player_RDs([players[player_name] for player_name in team2])
- 
+
         for player_name in team1:
             games_of_player[player_name][0].append(team1_rating)
             games_of_player[player_name][1].append(team2_rating)
