@@ -16,7 +16,7 @@ The files handled by this script are of type `.csv`, which means they can be han
 
 The games file has the format
 ```
-team1 member1,[team1 member2,]team2 member1,[team2 member2,]winning team
+# team1 member1,[team1 member2,]team2 member1,[team2 member2,]winning team
 John,Joe,Ben,Ash,0
 Ash,Ben,1
 ...
@@ -31,7 +31,7 @@ Each player name in the games file must exist in the `ratings.csv` file.
 
 The ratings file has the format
 ```
-name,rating,rd,vol
+# name,rating,rd,vol
 Ash,1800,200,0.0
 Ben,1400,100,0.06
 John
