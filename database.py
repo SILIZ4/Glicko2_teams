@@ -79,7 +79,7 @@ def apply_games(players: dict, game_filename: str):
     for team1, team2, result in read_games(game_filename):
         for player_name in team1 + team2:
             if player_name not in players.keys():
-                raise ValueError("Player {player_name} not found "
+                raise ValueError(f"Player {player_name} not found "
                                  "in the player database \"ratings.csv\".")
 
         team1_rating = Player.merge_player_ratings(
