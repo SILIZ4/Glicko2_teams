@@ -28,6 +28,10 @@ def load_players(filename: str) -> dict[str, Player]:
             # Initialize player with default Glicko values if player_stats empty.
             players[player_name] = Player(
                 **dict(zip(["rating", "rd", "vol"], map(float, player_stats))))
+
+            players[player_name] = Player(**dict(
+                zip(["rating", "rd", "vol"],
+                    map(lambda x: float(x.strip()), player_stats))))
     return players
 
 
@@ -40,9 +44,10 @@ def read_games(
     """
     games = []
     with open(filename, "r") as file_stream:
-        next(file_stream)  # ignore first line
         for i, line in enumerate(file_stream):
-            *players, result = line.split(',')
+            if line.startswith("#"):
+                continue
+            *players, result = list(map(lambda x: x.strip(), line.split(',')))
             if len(players) == 2:
                 games.append(((players[0]), (players[1]), int(result)))
             elif len(players) == 4:

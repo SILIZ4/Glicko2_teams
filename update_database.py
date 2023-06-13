@@ -1,6 +1,5 @@
 from os import path
 
-from glicko import Player
 from database import apply_games, write_players, load_players
 
 RATINGS_FILE_NAME = "ratings.csv"
