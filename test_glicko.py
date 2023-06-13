@@ -9,15 +9,13 @@ class testCases(unittest.TestCase):
         self.P1 = glicko.Player()
         self.P1.setRd(200)
 
-        self.P1.update_player([1500]*3, [1400, 1550, 1700], [30, 100, 300], [1, 0, 0])
+        self.P1.update_player([1500] * 3, [1400, 1550, 1700], [30, 100, 300],
+                              [1, 0, 0])
         # Original Ryan example.
         self.Ryan = glicko.Player()
 
-        self.Ryan.update_player(
-            [1500]*3, [1400, 1550, 1700],
-            [30, 100, 300], [1, 0, 0]
-        )
-
+        self.Ryan.update_player([1500] * 3, [1400, 1550, 1700], [30, 100, 300],
+                                [1, 0, 0])
 
     def test_rating(self):
         self.assertEqual(round(self.P1.rating, 2), 1464.05)
@@ -36,6 +34,7 @@ class testCases(unittest.TestCase):
 
     def test_ryan_volatility(self):
         self.assertEqual(round(self.Ryan.vol, 5), 0.05999)
+
 
 if __name__ == "__main__":
     unittest.main()
